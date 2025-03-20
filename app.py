@@ -28,8 +28,8 @@ if st.button("🚀 Generate DBA Query"):
         st.error("❌ Please describe your DBA request!")
     else:
         try:
-            # Set API Key
-            openai.api_key = api_key
+            # Create OpenAI client
+            client = openai.OpenAI(api_key=api_key)
 
             # System instruction for AI
             system_prompt = f"You are an expert {db_type} DBA. Generate only {db_type} SQL queries for {query_type} without explanation."
@@ -38,7 +38,7 @@ if st.button("🚀 Generate DBA Query"):
             full_prompt = f"Generate a {query_type} SQL query for {db_type}. {query_description}"
 
             # Call OpenAI API
-            response = openai.ChatCompletion.create(
+            response = client.chat.completions.create(
                 model="gpt-4",
                 messages=[
                     {"role": "system", "content": system_prompt},
@@ -48,7 +48,7 @@ if st.button("🚀 Generate DBA Query"):
 
             # Display Generated Query
             st.subheader("✅ Generated SQL Query:")
-            st.code(response["choices"][0]["message"]["content"], language="sql")
+            st.code(response.choices[0].message.content, language="sql")
 
         except Exception as e:
             st.error(f"🚨 Error: {e}")
