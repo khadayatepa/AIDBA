@@ -3,11 +3,15 @@ import openai
 import os
 from dotenv import load_dotenv
 
-# Load environment variables from .env file
+# Load environment variables from .env file (for local execution)
 load_dotenv()
 
-# Get API key from environment variables
-api_key = os.getenv("OPENAI_API_KEY")
+# Get API key (from environment variables or Streamlit secrets)
+api_key = os.getenv("OPENAI_API_KEY", st.secrets.get("OPENAI_API_KEY"))
+
+# Debugging: Print a masked API key (ONLY in local mode)
+if api_key and os.getenv("OPENAI_API_KEY"):
+    print(f"✅ OpenAI API Key Loaded: {api_key[:5]}...********")
 
 # Streamlit UI
 st.title("🛠️ AI-Powered DBA SQL Query Generator")
@@ -28,12 +32,12 @@ query_description = st.text_area("📝 Describe what you need in plain English:"
 
 if st.button("🚀 Generate DBA Query"):
     if not api_key:
-        st.error("❌ OpenAI API key is missing! Add it to Streamlit Secrets or a `.env` file.")
+        st.error("❌ OpenAI API key is missing! Please set it in `.env` (local) or `st.secrets` (Streamlit Cloud).")
     elif not query_description:
         st.error("❌ Please describe your DBA request!")
     else:
         try:
-            # Initialize OpenAI client
+            # Initialize OpenAI client (OpenAI SDK v1.0+)
             client = openai.OpenAI(api_key=api_key)
 
             # AI prompt customization
