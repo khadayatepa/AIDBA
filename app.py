@@ -1,9 +1,13 @@
 import streamlit as st
 import openai
 import os
+from dotenv import load_dotenv
 
-# Load API key securely
-api_key = os.getenv("OPENAI_API_KEY", st.secrets.get("OPENAI_API_KEY"))
+# Load environment variables from .env file
+load_dotenv()
+
+# Get API key from environment variables
+api_key = os.getenv("OPENAI_API_KEY")
 
 # Streamlit UI
 st.title("🛠️ AI-Powered DBA SQL Query Generator")
