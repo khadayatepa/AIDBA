@@ -2,7 +2,7 @@ import streamlit as st
 import openai
 
 # Streamlit UI
-st.title("🛠️ DBA SQL Query Generator")
+st.title("🛠️ AI-Powered DBA SQL Query Generator")
 
 # API Key Input
 api_key = st.text_input("🔑 Enter your OpenAI API key:", type="password")
@@ -12,13 +12,10 @@ db_type = st.selectbox("🗄️ Select Database", ["Oracle", "MySQL", "PostgreSQ
 
 # DBA Query Type Selection
 query_type = st.selectbox("⚙️ Select DBA Task", [
-    "User Management",
-    "Performance Tuning",
-    "Backup & Restore",
-    "Replication",
-    "Index & Table Maintenance",
-    "Query Optimization",
-    "Database Monitoring"
+    "Database Health Checks",
+    "Security Audits",
+    "Disaster Recovery Queries",
+    "Tablespace & Storage Analysis"
 ])
 
 # Natural Language Input
