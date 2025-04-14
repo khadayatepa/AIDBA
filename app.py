@@ -2,7 +2,7 @@ import streamlit as st
 import openai
 
 # Streamlit UI
-st.title("🛠️ AI-Powered DBA SQL Query Generator")
+st.title("🛠️ AI-Powered DBA admin SQL Query Generator - Developed by Prashant K")
 
 # API Key Input
 api_key = st.text_input("🔑 Enter your OpenAI API key:", type="password")
